@@ -41,16 +41,16 @@ if st.sidebar.button('Submit'):
 
         # Visualizations for Bowling Stats
         st.subheader('Bowling Statistics Visualizations')
-        
+
         # Bar plot of Wickets by Country
         st.write("Bar plot of Wickets by Country:")
         fig = px.bar(filtered_bowling_df, x='Country', y='Wickets', title='Wickets by Country')
         st.plotly_chart(fig)
 
-        # Heatmap of Correlation Matrix
-        st.write("Heatmap of Correlation Matrix for Bowling Statistics:")
-        corr_matrix = filtered_bowling_df.corr()
-        fig = px.imshow(corr_matrix, labels=dict(x="Features", y="Features", color="Correlation"))
+        # Pie chart of Wickets distribution by Bowler
+        st.write("Pie chart of Wickets distribution by Bowler:")
+        wickets_by_bowler = filtered_bowling_df.groupby("Name")["Wickets"].sum().reset_index()
+        fig = px.pie(wickets_by_bowler, values='Wickets', names='Name', title='Wickets distribution by Bowler')
         st.plotly_chart(fig)
 
     elif analysis_option == 'Batting Stats':
@@ -59,7 +59,7 @@ if st.sidebar.button('Submit'):
 
         # Visualizations for Batting Stats
         st.subheader('Batting Statistics Visualizations')
-        
+
         # Pie chart of Hundred's distribution by Country
         st.write("Pie chart of Hundred's distribution by Country:")
         hundreds_by_country = filtered_batting_df.groupby("Country")["Hundreds"].sum().reset_index()
@@ -71,14 +71,10 @@ if st.sidebar.button('Submit'):
         fig = px.scatter(filtered_batting_df, x='Strike_rate', y='Fifties', title='Strike Rate vs Fifties')
         st.plotly_chart(fig)
 
-        # Line plot of Runs vs Innings
-        st.write("Line plot of Runs vs Innings:")
-        fig = px.line(filtered_batting_df, x='Innings', y='Runs', color='Country', title='Runs vs Innings')
-        st.plotly_chart(fig)
-
-        # Box plot of Average by Country
-        st.write("Box plot of Average by Country:")
-        fig = px.box(filtered_batting_df, x='Country', y='Average', title='Average by Country')
+        # Bar plot of Runs by Player
+        st.write("Bar plot of Runs by Player:")
+        runs_by_player = filtered_batting_df.groupby("Name")["Runs"].sum().reset_index()
+        fig = px.bar(runs_by_player, x='Name', y='Runs', title='Runs by Player')
         st.plotly_chart(fig)
 
 else:
