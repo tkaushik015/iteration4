@@ -47,11 +47,9 @@ if st.sidebar.button('Submit'):
         fig = px.bar(filtered_bowling_df, x='Country', y='Wickets', title='Wickets by Country')
         st.plotly_chart(fig)
 
-        df4 = filtered_bowling_df[['Inns','Balls','Overs','Runs','Wickets','Average','Economy','Strike_Rate','Four_wickets','Five_wickets']]
-
         # Heatmap of Correlation Matrix
-        st.write("Heatmap of Correlation Matrix:")
-        corr_matrix = df4.corr()
+        st.write("Heatmap of Correlation Matrix for Bowling Statistics:")
+        corr_matrix = filtered_bowling_df.corr()
         fig = px.imshow(corr_matrix, labels=dict(x="Features", y="Features", color="Correlation"))
         st.plotly_chart(fig)
 
@@ -71,6 +69,16 @@ if st.sidebar.button('Submit'):
         # Scatter plot of Strike Rate vs Fifties
         st.write("Scatter plot of Strike Rate vs Fifties:")
         fig = px.scatter(filtered_batting_df, x='Strike_rate', y='Fifties', title='Strike Rate vs Fifties')
+        st.plotly_chart(fig)
+
+        # Line plot of Runs vs Innings
+        st.write("Line plot of Runs vs Innings:")
+        fig = px.line(filtered_batting_df, x='Innings', y='Runs', color='Country', title='Runs vs Innings')
+        st.plotly_chart(fig)
+
+        # Box plot of Average by Country
+        st.write("Box plot of Average by Country:")
+        fig = px.box(filtered_batting_df, x='Country', y='Average', title='Average by Country')
         st.plotly_chart(fig)
 
 else:
