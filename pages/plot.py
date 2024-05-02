@@ -19,19 +19,17 @@ st.sidebar.header('Filters')
 analysis_option = st.sidebar.selectbox('Analysis Option', ['Bowling Stats', 'Batting Stats'])
 
 country_list = list(batting_df['Country'].unique())
-st.write(type(country_list))
-st.write(country_list[0])
+
 country = st.sidebar.selectbox("Select Country",country_list)
+
 # Function to filter bowling data
 def filter_bowling_data(df):
-   # country = st.sidebar.text_input('Country')
     if country:
         df2 = df[df['Country'].str.contains(country, case=False)]
     return df2
 
 # Function to filter batting data
 def filter_batting_data(df):
-    #country = st.sidebar.text_input('Country')
     if country:
         df2 = df[df['Country'].str.contains(country, case=False)]
     return df2
@@ -76,7 +74,6 @@ if st.sidebar.button('Submit'):
         st.plotly_chart(fig)
 
 else:
-    print("else last cond")
     if analysis_option == 'Bowling Stats':
         st.write(bowling_df)
 
